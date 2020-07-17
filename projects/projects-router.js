@@ -1,13 +1,16 @@
 let express = require('express');
 
 let router = express.Router()
-
-let Projects = require('../resources/resource-model')
+let taskRoutes = require('../tasks/tasks-router');
+let Projects = require('../resources/resource-model');
 let { handleError } = require('../utils/services');
 
 // router.get('/', (req, res) => {
 //     res.status(200).json({ message: "hey we are up" })
 // })
+
+router.use('/:id/tasks', taskRoutes)
+
 router.get('/', (req, res) => {
     Projects.findAllProjects()// takes care of GET: /api/projects call
     .then(project => {
